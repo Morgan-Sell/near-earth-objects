@@ -44,10 +44,19 @@ class NearEarthObject:
         # You should coerce these values to their appropriate data type and
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
-        self.designation = designation
-        self.name = name if not "" else None
-        self.diameter = float(diameter) if not None else float('nan')
-        self.hazardous = hazardous
+        
+        # default values
+        self.designation = None
+        self.name = None
+        self.diameter = float('nan')
+        self.hazardous = False
+
+        allowed_keys = list(self.__dict__.keys())
+
+    
+        # Update attributes based on the provided **kwargs.
+        self.__dict__.update((key, val) for key, val in info.items() if key in allowed_keys)
+
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
