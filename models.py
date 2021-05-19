@@ -104,10 +104,19 @@ class CloseApproach:
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        self._designation = designation
-        self.time = cd_to_datetime(time) if not "" else None  # TODO: Use the cd_to_datetime function for this attribute.
-        self.distance = float(distance)
-        self.velocity = float(velocity)
+
+        # default values
+        self._designation = None
+        self.time = None
+        self.distance = float("nan")
+        self.velocity = float("nan")
+
+        allowed_keys = list(self.__dict__.keys())
+
+        # update attribute values
+        self.__dict__.update((key, val) for key, val in info.items() if key in allowed_keys)
+        self.time = cd_to_datetime(self.time)
+
 
         # Create an attribute for the referenced NEO, originally None.
         self.neo = None
@@ -141,3 +150,5 @@ class CloseApproach:
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return (f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, "
                 f"velocity={self.velocity:.2f}, neo={self.neo!r})")
+
+
