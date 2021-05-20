@@ -57,7 +57,11 @@ class NearEarthObject:
         # Update attributes based on the provided **kwargs.
         self.__dict__.update((key, val) for key, val in info.items() if key in allowed_keys)
 
-
+        # Change hazardous to boolean.
+        if self.hazardous == "Y" or self.hazardous == "y":
+            self.hazardous = True
+        else:
+            self.hazardous = False
         # Create an empty initial collection of linked approaches.
         self.approaches = []
 
@@ -65,14 +69,19 @@ class NearEarthObject:
     def fullname(self):
         """Return a representation of the full name of this NEO."""
         # TODO: Use self.designation and self.name to build a fullname for this object.
-        return f"{self.designation} - {self.name}"
+        return f"{self.designation} ({self.name})"
 
     def __str__(self):
         """Return `str(self)`."""
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"A NearEarthObject named {self.fullname} has a diameter equal to {self.diameter} km and is {self.hazardous}."
+        if self.hazardous:
+            is_hazard = "is"
+        else:
+            is_hazard = "is not"
+
+        return f"{self.fullname} has a diameter equal to {self.diameter} km and is {is_hazard} potentially hazardous."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
