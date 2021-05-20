@@ -72,7 +72,7 @@ class NearEarthObject:
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"A NearEarthObject intenrnationally known as {self.fullname} has a diameter equal to {self.diameter} km and is {self.hazardous}."
+        return f"A NearEarthObject named {self.fullname} has a diameter equal to {self.diameter} km and is {self.hazardous}."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
@@ -110,6 +110,7 @@ class CloseApproach:
         self.time = None
         self.distance = float("nan")
         self.velocity = float("nan")
+        self.neo = None
 
         allowed_keys = list(self.__dict__.keys())
 
@@ -119,7 +120,7 @@ class CloseApproach:
 
 
         # Create an attribute for the referenced NEO, originally None.
-        self.neo = None
+        
 
     @property
     def time_str(self):
@@ -144,7 +145,7 @@ class CloseApproach:
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"On {self.time_str}, {self.neo.fullname} approached Earth at a distance of {self.distance:.2f} traveling at a velocity of {self.velocity:.2f} km/s."
+        return f"On {self.time_str}, {self.neo.fullname} approached Earth traveling at a velocity of {self.velocity:.2f} km/s. The extraterrestrial object was {self.distance:.2f} kms from Earth."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
