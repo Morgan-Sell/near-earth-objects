@@ -25,7 +25,7 @@ def load_neos(neo_csv_path):
     :return: A collection of `NearEarthObject`s.
     """
     neos = []
-    with open(neo_csv_path) as infile:
+    with open(neo_csv_path, 'r') as infile:
         reader = csv.reader(infile)
         for line in reader:
             info = dict(
@@ -47,7 +47,7 @@ def load_approaches(cad_json_path):
     """
     # TODO: Load close approach data from the given JSON file.
     approaches = []
-    with open(cad_json_path) as infile:
+    with open(cad_json_path, 'r') as infile:
         data = json.load(infile)
     
     for approach in data["data"]:
