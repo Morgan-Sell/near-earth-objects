@@ -27,6 +27,7 @@ def load_neos(neo_csv_path):
     neos = []
     with open(neo_csv_path, 'r') as infile:
         reader = csv.reader(infile)
+        next(reader)
         for line in reader:
             info = dict(
                 designation=line[3],

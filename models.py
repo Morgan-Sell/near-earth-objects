@@ -57,6 +57,16 @@ class NearEarthObject:
         # Update attributes based on the provided **kwargs.
         self.__dict__.update((key, val) for key, val in info.items() if key in allowed_keys)
 
+        # If variable is omitted, transform to appropriate object types.e
+        if self.name == "":
+            self.name = None
+        
+        # Transform diameter to float
+        try:
+            self.diameter = float(self.diameter)
+        except ValueError:
+            self.diameter = float('nan')
+
         # Change hazardous to boolean.
         if self.hazardous == "Y" or self.hazardous == "y":
             self.hazardous = True
@@ -119,17 +129,21 @@ class CloseApproach:
         self.time = None
         self.distance = float("nan")
         self.velocity = float("nan")
-        self.neo = None
+        
 
         allowed_keys = list(self.__dict__.keys())
 
         # update attribute values
         self.__dict__.update((key, val) for key, val in info.items() if key in allowed_keys)
+        
+        # Convert attributes to appropriate
         self.time = cd_to_datetime(self.time)
-
+        self.distance = float(self.distance)
+        self.velocity = float(self.velocity)
+        
 
         # Create an attribute for the referenced NEO, originally None.
-        
+        self.neo = None
 
     @property
     def time_str(self):
