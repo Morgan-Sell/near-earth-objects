@@ -33,7 +33,7 @@ class NEODatabase:
         constructor modifies the supplied NEOs and close approaches to link them
         together - after it's done, the `.approaches` attribute of each NEO has
         a collection of that NEO's close approaches, and the `.neo` attribute of
-        each close approach references the appropriate NEO.
+        each close approach references the appropriate NEO._
 
         :param neos: A collection of `NearEarthObject`s.
         :param approaches: A collection of `CloseApproach`es.
@@ -42,13 +42,15 @@ class NEODatabase:
         self._approaches = approaches
 
         # TODO: What additional auxiliary data structures will be useful?
-        neos_dict = {}
+        self.neos_dict = {}
         for neo in self._neos:
-            neos_dict[neo.designation] = neo
+            self.neos_dict[neo.designation] = neo
 
         # TODO: Link together the NEOs and their close approaches.
         for approach in self._approaches:
-            tmp_neo = neos_dict[approach.]
+            tmp_neo = self.neos_dict[approach._designation]
+            approach.neo.append(tmp_neo)
+            tmp_neo.approaches.append(approach)
 
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
@@ -64,7 +66,11 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         # TODO: Fetch an NEO by its primary designation.
-        return None
+        if designation in self.neos_dict:
+            neo = self.neos_dict[designation]
+        else:
+            neo = None
+        return neo
 
     def get_neo_by_name(self, name):
         """Find and return an NEO by its name.
