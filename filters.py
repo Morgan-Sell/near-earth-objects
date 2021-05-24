@@ -71,6 +71,14 @@ class AttributeFilter:
     def __repr__(self):
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
+class DiameterFilter(AttributeFilter):
+    """Returns the near-earth objects that matches the logic based on the diameter.
+
+
+
+    """
+    def __init__(self):
+        super().__init__(range)
 
 def create_filters(date=None, start_date=None, end_date=None,
                    distance_min=None, distance_max=None,
